@@ -1,9 +1,10 @@
 CREATE DATABASE test
 
+-- Id  INT PRIMARY KEY,
+--last_name VARCHAR(50),
+
 CREATE TABLE users (
-    Id  INT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(300),
     email VARCHAR(100) UNIQUE
 );
 

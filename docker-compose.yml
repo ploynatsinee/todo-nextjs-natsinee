@@ -3,7 +3,7 @@ services:
   web:
     container_name: app-nextjs
     image: perporserot/nextjs-docker
-    restart: always
+    restart: unless-stopped
     build: .
     ports:
       - '3000:3000'
@@ -16,7 +16,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres:latest
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./data:/data/db
     ports:

@@ -3,28 +3,32 @@ const pool = require("../../db");
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
-  message: string
-}
-
-export default async function createUser (req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  return new Promise<void>((resolve) => {
-    const { name, email } = req.body;
-    if (req.method === "POST") {
-      try {
-        pool.query(
-          "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
-          [name, email],
-          () => {
-            res.status(201).json({  message: 'signup success' });
-          }
-        );
-      } catch (error) {
-        res.status(400).send(error);
-        console.log(error);
-      }
-    }
-    return resolve();
-  });
+  message: string;
 };
 
-// export default createUser;
+const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log("test");
+
+  const { name, email } = req.body;
+
+  if (req.method === "POST") {
+    try {
+      console.log("inside");
+
+      const result = await pool.query(
+        "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
+        [name, email]
+      );
+      res.status(200).json({ result });
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
+  } else {
+    res.status(200).json({ message: "hello" });
+  }
+
+  console.log("exit");
+};
+
+export default createUser;
