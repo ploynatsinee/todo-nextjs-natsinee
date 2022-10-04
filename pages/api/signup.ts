@@ -11,7 +11,7 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
           "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
           [name, email],
           (error, results) => {
-            res.status(201).send({ result });
+            res.status(201).json({ message: 'success' });
           }
         );
       } catch (error) {
