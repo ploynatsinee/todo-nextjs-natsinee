@@ -8,5 +8,5 @@ CREATE TABLE users (
 );
 
 CREATE TABLE todo (
-    todo description VARCHAR(255)
+    todo VARCHAR(255)
 );
