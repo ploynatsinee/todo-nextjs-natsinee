@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  web:
+    container_name: app-nextjs
+    image: perporserot/nextjs-docker
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgresql://todo:todo1234@localhost:5432/test?authSource=admin
+    # env_file:
+    #   - .env
+    links:
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test
+    # env_file:
+    #   - .env
