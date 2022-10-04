@@ -2,20 +2,16 @@
 const pool = require("../../db");
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type ResponseData = {
-  message: string
-}
-
-export default async function createUser (req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+const deleteTodo = async (req: NextApiRequest, res: NextApiResponse) => {
   return new Promise<void>((resolve) => {
-    const { name, email } = req.body;
-    if (req.method === "POST") {
+    const { todo } = req.body;
+    if (req.method === "DELETE") {
       try {
         pool.query(
-          "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
-          [name, email],
+          "DELETE FROM todos (todo) VALUES ($1) RETURNING *",
+          [todo],
           () => {
-            res.status(201).json({  message: 'signup success' });
+            res.status(200).json({ message: 'delete todo success' });
           }
         );
       } catch (error) {
@@ -27,4 +23,4 @@ export default async function createUser (req: NextApiRequest, res: NextApiRespo
   });
 };
 
-// export default createUser;
+export default deleteTodo;

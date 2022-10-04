@@ -7,6 +7,6 @@ CREATE TABLE users (
     email VARCHAR(100) UNIQUE
 );
 
-CREATE TABLE todo (
+CREATE TABLE todos (
     todo VARCHAR(255)
 );

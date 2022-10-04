@@ -2,20 +2,16 @@
 const pool = require("../../db");
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type ResponseData = {
-  message: string
-}
-
-export default async function createUser (req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+const createTodo = async (req: NextApiRequest, res: NextApiResponse) => {
   return new Promise<void>((resolve) => {
-    const { name, email } = req.body;
+    const { todo } = req.body;
     if (req.method === "POST") {
       try {
         pool.query(
-          "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
-          [name, email],
+          "INSERT INTO todos (todo) VALUES ($1) RETURNING *",
+          [todo],
           () => {
-            res.status(201).json({  message: 'signup success' });
+            res.status(201).json({ message: 'create todo success' });
           }
         );
       } catch (error) {
@@ -27,4 +23,4 @@ export default async function createUser (req: NextApiRequest, res: NextApiRespo
   });
 };
 
-// export default createUser;
+export default createTodo;
