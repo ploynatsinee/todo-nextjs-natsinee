@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const pool = require("../../db");
+import pool from "../../db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
   message: string;
 };
 
-const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
+const createUser = async (req, res) => {
   console.log("test");
 
   const { name, email } = req.body;

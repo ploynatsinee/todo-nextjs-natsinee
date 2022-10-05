@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const pool = require("../../db");
+import pool from "../../db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const createTodo = async (req: NextApiRequest, res: NextApiResponse) => {
+const createTodo = async (req, res) => {
   return new Promise<void>((resolve) => {
     const { todo } = req.body;
     if (req.method === "POST") {
