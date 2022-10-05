@@ -21,8 +21,7 @@ const createTodo = async (req, res) => {
       const haveData = await pool.query(
         `DELETE FROM todos WHERE todo='${data}' `
       );
-      res.status(200).json(`delete data success ${haveData}`);
-      // res.status(200).json({ message: "delete todo success" });
+      res.status(200).json({ message: "delete todo success" });
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
