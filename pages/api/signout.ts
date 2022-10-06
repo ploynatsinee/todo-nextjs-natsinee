@@ -6,8 +6,6 @@ type ResponseData = {
 };
 
 const signOut = async (req, res) => {
-  console.log("test");
-
   const name = req.body.name;
   const email = req.body.email;
 
@@ -18,7 +16,7 @@ const signOut = async (req, res) => {
   if (req.method === "POST") {
     if (user) {
       try {
-        res.removeHeader("user_token")
+        res.removeHeader("user_token");
         res.send("You are logged out");
       } catch (error) {
         res.status(400).send(error);
@@ -37,8 +35,6 @@ const signOut = async (req, res) => {
       console.log(error);
     }
   }
-
-  console.log("exit");
 };
 
 export default signOut;
