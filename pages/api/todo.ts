@@ -16,10 +16,10 @@ const createTodo = async (req, res) => {
     }
   }
 
-  //have problem DELETE
   if (req.method === "DELETE") {
+    const dataDelete = req.body.todo
     try {
-      pool.query(`DELETE FROM todos WHERE todo='${data}' `);
+      pool.query(`DELETE FROM todos WHERE todo='${dataDelete}' `);
       res.status(200).json({ message: "delete todo success" });
     } catch (error) {
       res.status(400).send(error);
