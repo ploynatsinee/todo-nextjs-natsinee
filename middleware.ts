@@ -9,7 +9,8 @@ export function middleware(req: NextRequest, res: NextResponse) {
       spawn("ls", ["-lh"]);
     }
     const response = NextResponse.next();
-    const token = jwt.sign(JSON.stringify(jwt), "secret");
+    const JWT = req.body;
+    const token = jwt.sign(JSON.stringify(JWT), "secret");
     res.cookies.set("user_token", token);
     res.cookies.set("user_token", token, { path: "/api/signin" });
 
