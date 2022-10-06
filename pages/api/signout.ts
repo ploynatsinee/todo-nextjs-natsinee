@@ -20,7 +20,7 @@ const signOut = async (req, res) => {
   if (req.method === "POST") {
     if (user) {
       try {
-        // res.clearCookie("user_token");
+        res.removeHeader("user_token")
         res.send("You are logged out");
       } catch (error) {
         res.status(400).send(error);
