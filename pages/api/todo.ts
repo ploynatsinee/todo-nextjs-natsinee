@@ -18,15 +18,26 @@ const createTodo = async (req, res) => {
 
   if (req.method === "DELETE") {
     try {
-      pool.query(
-        `DELETE FROM todos WHERE todo='${data}' `
-      );
+      pool.query(`DELETE FROM todos WHERE todo='${data}' `);
       res.status(200).json({ message: "delete todo success" });
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
     }
   }
+
+  if (req.method === "GET") {
+    try {
+      const todoData = await pool.query(
+        'SELECT * FROM todos;'
+      );
+      res.status(200).json({todoData});
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
+  }
+
 };
 
 export default createTodo;
