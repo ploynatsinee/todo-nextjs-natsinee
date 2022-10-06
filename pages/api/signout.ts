@@ -5,8 +5,6 @@ type ResponseData = {
   message: string;
 };
 
-// this is mock up cannot use
-
 const signOut = async (req, res) => {
   console.log("test");
 
@@ -33,7 +31,7 @@ const signOut = async (req, res) => {
     try {
       res
         .status(200)
-        .json({ message: "Please sign in before you can sign out." });
+        .json({ message: "Please sign up before you can sign out." });
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
