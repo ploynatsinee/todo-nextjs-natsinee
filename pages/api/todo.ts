@@ -16,6 +16,7 @@ const createTodo = async (req, res) => {
     }
   }
 
+  //have problem DELETE
   if (req.method === "DELETE") {
     try {
       pool.query(`DELETE FROM todos WHERE todo='${data}' `);
@@ -29,7 +30,7 @@ const createTodo = async (req, res) => {
   if (req.method === "GET") {
     try {
       const todoData = await pool.query("SELECT * FROM todos;");
-      res.status(200).json({ todoData });
+      res.status(200).json(todoData.rows);
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
