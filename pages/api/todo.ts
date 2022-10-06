@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const createTodo = async (req, res) => {
   const { todo } = req.body;
-  const data = req.body.todo;
+  const data = req.body;
 
   if (req.method === "POST") {
     try {
@@ -28,16 +28,24 @@ const createTodo = async (req, res) => {
 
   if (req.method === "GET") {
     try {
-      const todoData = await pool.query(
-        'SELECT * FROM todos;'
-      );
-      res.status(200).json({todoData});
+      const todoData = await pool.query("SELECT * FROM todos;");
+      res.status(200).json({ todoData });
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
     }
   }
-
+  if (req.method === "PUT") {
+    try {
+      const { todo } = req.body;
+      const text = `UPDATE todos SET todo = 'finished ${todo}' WHERE todo = '${todo}' RETURNING *`;
+      const result = await pool.query(text);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
+  }
 };
 
 export default createTodo;
