@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import pool from "../../db";
 import type { NextApiRequest, NextApiResponse } from "next";
+import bcrypt from "bcrypt";
 
 type ResponseData = {
   message: string;
@@ -8,15 +9,18 @@ type ResponseData = {
 
 const createUser = async (req, res) => {
 
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
 
   if (req.method === "POST") {
     try {
-      const result = await pool.query(
-        "INSERT INTO users (first_name, email) VALUES ($1, $2) RETURNING *",
-        [name, email]
+      bcrypt.hash(password, 10).then(async (hash) => {
+        const result = await pool.query(
+        "INSERT INTO users (first_name, email, password) VALUES ($1, $2, $3) RETURNING *",
+        [name, email, password]
       );
-      res.status(200).json({ result });
+      res.status(200).json({ name: name, email: email, password: hash});
+      })
+      
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
