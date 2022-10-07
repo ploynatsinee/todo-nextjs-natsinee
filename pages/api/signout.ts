@@ -8,13 +8,14 @@ type ResponseData = {
 const signOut = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
+  const password = req.body.password;
 
   const user = await pool.query(
-    `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' `
+    `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' AND password='${password}'`
   );
 
   if (req.method === "POST") {
-    if (user) {
+    if (name && email && password) {
       try {
         res.removeHeader("user_token");
         res.send("You are logged out");
