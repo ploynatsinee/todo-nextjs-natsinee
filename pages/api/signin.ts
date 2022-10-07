@@ -9,9 +9,10 @@ type ResponseData = {
 const signIn = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
+  const password = req.body.password;
 
   const user = await pool.query(
-    `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' `
+    `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' AND password='${password}' `
   );
 
   if (req.method === "POST") {
