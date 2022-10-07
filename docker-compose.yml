@@ -21,8 +21,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: test
     volumes:
+      - ./postgres-data:/var/lib/postgresql/data
       - ./database.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '5432:5432'
+    user: "501:20"
     env_file:
       - .env
