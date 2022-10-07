@@ -14,9 +14,10 @@ const signIn = async (req, res) => {
   const user = await pool.query(
     `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' AND password='${password}' `
   );
+  console.log(user)
 
   if (req.method === "POST") {
-    if (name && email && password) {
+    if (user && name && email && password) {
       try {
         const JWT = req.body.name;
         const token = jwt.sign(JSON.stringify(JWT), process.env.MY_SECRET);
