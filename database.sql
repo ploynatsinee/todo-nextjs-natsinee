@@ -5,5 +5,6 @@ CREATE TABLE users (
 );
 
 CREATE TABLE todos (
-    todo VARCHAR(255)
+    todo VARCHAR(255),
+    isSuccessful BOOLEAN
 );

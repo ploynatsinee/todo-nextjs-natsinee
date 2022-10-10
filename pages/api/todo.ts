@@ -8,7 +8,7 @@ const createTodo = async (req, res) => {
 
   if (req.method === "POST") {
     try {
-      pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [todo]);
+      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [todo]);
       res.status(201).json({ message: "create todo success" });
     } catch (error) {
       res.status(400).send(error);
@@ -17,9 +17,8 @@ const createTodo = async (req, res) => {
   }
 
   if (req.method === "DELETE") {
-    const dataDelete = req.body.todo
     try {
-      pool.query(`DELETE FROM todos WHERE todo='${dataDelete}' `);
+      pool.query(`DELETE FROM todos WHERE todo= $1 `, [todo]);
       res.status(200).json({ message: "delete todo success" });
     } catch (error) {
       res.status(400).send(error);
@@ -36,17 +35,18 @@ const createTodo = async (req, res) => {
       console.log(error);
     }
   }
-  if (req.method === "PUT") {
-    try {
-      const { todo } = req.body;
-      const text = `UPDATE todos SET todo = 'finished ${todo}' WHERE todo = '${todo}' RETURNING *`;
-      const result = await pool.query(text);
-      res.status(200).json(result);
-    } catch (error) {
-      res.status(400).send(error);
-      console.log(error);
-    }
-  }
+  // if (req.method === "PUT") {
+  //   try {
+  //     // const { todo } = req.body;
+  //     // const text = `UPDATE todos  SET todo = NOT todo`;
+  
+  //     // const result = await pool.query(text);
+  //     // res.status(200).json(result);
+  //   } catch (error) {
+  //     res.status(400).send(error);
+  //     console.log(error);
+  //   }
+  // }
 };
 
 export default createTodo;
