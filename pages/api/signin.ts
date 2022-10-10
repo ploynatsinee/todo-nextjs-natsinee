@@ -21,15 +21,19 @@ const signIn = async (req, res) => {
         }
         console.log(results.rows);
 
-        if (!results.rows.length) {
-          res.status(401).json({ message: "User not found" });
-          return;
-        }
-
         if (!email || !password) {
           res
             .status(401)
             .json({ message: "Please fill out the information completely." });
+          return;
+        }
+
+        if (!results.rows.length) {
+          res
+            .status(401)
+            .json({
+              message: "User not found, Please recheck your email or password",
+            });
           return;
         }
 
@@ -46,19 +50,6 @@ const signIn = async (req, res) => {
         }
       }
     );
-
-    // const output = user.rows;
-
-    // if (!email || !password) {
-    //   res
-    //     .status(401)
-    //     .json({ message: "Please fill out the information completely." });
-    //   return;
-    // }
-    // if (!output.length) {
-    //   res.status(401).json({ message: "User not found" });
-    //   return;
-    // }
   }
 };
 
