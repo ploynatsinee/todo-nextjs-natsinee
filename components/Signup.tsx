@@ -40,7 +40,7 @@ export default function SignUp() {
   // const navigate = useNavigate();
 
   const [registerData, setRegisterData] = useState({
-    firstname: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -54,23 +54,19 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    
     try {
       const result = await axiosInstance.post(`/signup`, registerData);
-      alert("Your account has been created, Please signin.");
+      // alert("Your account has been created, Please signin.");
       // navigate("/signin");
       console.log(result);
       // if (result.data.includes("Please fill out the information completely.")) {
       //   alert("Please fill out the information completely.");
       // }
-      if (!result.data.length) {
-        console.log("emply data kaa");
-      } else if (result.data.length) {
-        console.log("Mee length kaa");
-      }
     } catch (err) {
       console.log(err.message);
     }
+    event.preventDefault();
   };
 
   return (
@@ -103,7 +99,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstname"
+                  name="name"
                   required
                   fullWidth
                   id="firstName"

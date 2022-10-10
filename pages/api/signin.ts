@@ -10,16 +10,21 @@ const signIn = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = await pool.query(
-    `SELECT * FROM users WHERE email='${email}' AND password='${password}' `
-  );
+  const user = await pool.query({
+    test: `SELECT * FROM users WHERE email= $1 AND password= $2 `,
+    value: [email, password],
+  });
+  // const text = "SELECT email, password FROM users(email, password) RETURNING *";
+  // const values = [req.body.email, req.body.password];
 
   const output = user.rows;
+  // const output = values.rows;
 
   if (req.method === "POST") {
-
-    if(!email || !password) {
-      res.status(401).json({ message: "Please fill out the information completely." });
+    if (!email || !password) {
+      res
+        .status(401)
+        .json({ message: "Please fill out the information completely." });
       return;
     }
     if (!output.length) {
@@ -28,6 +33,9 @@ const signIn = async (req, res) => {
     }
     if (output.length) {
       try {
+        // const res = await pool.query(text, values)
+        // console.log(res.rows[0])
+
         const JWT = req.body.email;
         const token = jwt.sign(JSON.stringify(JWT), process.env.MY_SECRET);
         res.setHeader("user_token", token);
@@ -37,7 +45,7 @@ const signIn = async (req, res) => {
         console.log(error);
       }
     }
-  } 
+  }
 };
 
 export default signIn;
