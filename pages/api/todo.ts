@@ -35,18 +35,24 @@ const createTodo = async (req, res) => {
       console.log(error);
     }
   }
-  // if (req.method === "PUT") {
-  //   try {
-  //     // const { todo } = req.body;
-  //     // const text = `UPDATE todos  SET todo = NOT todo`;
-  
-  //     // const result = await pool.query(text);
-  //     // res.status(200).json(result);
-  //   } catch (error) {
-  //     res.status(400).send(error);
-  //     console.log(error);
-  //   }
-  // }
+  if (req.method === "PUT") {
+    try {
+      const result = await pool.query(`UPDATE todos SET isSuccessful = true WHERE todo= $1`,[todo]);
+      res.status(200).json({ message: "toggle todo success" });
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
+  }
+  if (req.method === "PATCH") {
+    try {
+      const result = await pool.query(`UPDATE todos  SET isSuccessful = false WHERE todo= $1`,[todo]);
+      res.status(200).json({ message: "Un toggle todo success" });
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
+  }
 };
 
 export default createTodo;
