@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
           res.status(200).json({ name: name, email: email, password: hash });
         });
       } else {
-        res.status(200).json({ message: "Please fill out the information completely." });
+        res.status(204).json({ message: "Please fill out the information completely." });
       }
 
     } catch (error) {
@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
       console.log(error);
     }
   } else {
-    res.status(200).json({ message: "hello" });
+    res.status(405).json({ message: "Method not allowed " });
   }
 };
 

@@ -7,19 +7,28 @@ type ResponseData = {
 };
 
 const signIn = async (req, res) => {
-  const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
 
   const user = await pool.query(
-    `SELECT * FROM users WHERE first_name='${name}' AND email='${email}' AND password='${password}' `
+    `SELECT * FROM users WHERE email='${email}' AND password='${password}' `
   );
-  console.log(user)
+
+  const output = user.rows;
 
   if (req.method === "POST") {
-    if (user && name && email && password) {
+
+    if(!email || !password) {
+      res.status(401).json({ message: "Please fill out the information completely." });
+      return;
+    }
+    if (!output.length) {
+      res.status(401).json({ message: "User not found" });
+      return;
+    }
+    if (output.length) {
       try {
-        const JWT = req.body.name;
+        const JWT = req.body.email;
         const token = jwt.sign(JSON.stringify(JWT), process.env.MY_SECRET);
         res.setHeader("user_token", token);
         res.status(200).json({ message: "Signin success" });
@@ -27,14 +36,8 @@ const signIn = async (req, res) => {
         res.status(400).send(error);
         console.log(error);
       }
-    } else {
-      res
-        .status(200)
-        .json({ message: "Please fill out the information completely." });
     }
-  } else {
-    res.status(200).json({ message: "Incorrect." });
-  }
+  } 
 };
 
 export default signIn;
