@@ -11,12 +11,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import { useForm } from "react-hook-form";
 import { API_URL, axiosInstance } from "../utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
 import Router from "next/router";
-import Signin from "./Signin";
 
 function Copyright(props) {
   return (
