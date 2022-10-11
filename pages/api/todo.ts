@@ -7,8 +7,16 @@ const createTodo = async (req, res) => {
   const data = req.body;
 
   if (req.method === "POST") {
+    if (!data) {
+      res
+        .status(204)
+        .json({ message: "Please fill out the information completely." });
+      return;
+    }
     try {
-      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [todo]);
+      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [
+        todo,
+      ]);
       res.status(201).json({ message: "create todo success" });
     } catch (error) {
       res.status(400).send(error);
@@ -37,7 +45,10 @@ const createTodo = async (req, res) => {
   }
   if (req.method === "PUT") {
     try {
-      const result = await pool.query(`UPDATE todos SET isSuccessful = true WHERE todo= $1`,[todo]);
+      const result = await pool.query(
+        `UPDATE todos SET isSuccessful = true WHERE todo= $1`,
+        [todo]
+      );
       res.status(200).json({ message: "toggle todo success" });
     } catch (error) {
       res.status(400).send(error);
@@ -46,7 +57,10 @@ const createTodo = async (req, res) => {
   }
   if (req.method === "PATCH") {
     try {
-      const result = await pool.query(`UPDATE todos  SET isSuccessful = false WHERE todo= $1`,[todo]);
+      const result = await pool.query(
+        `UPDATE todos  SET isSuccessful = false WHERE todo= $1`,
+        [todo]
+      );
       res.status(200).json({ message: "Un toggle todo success" });
     } catch (error) {
       res.status(400).send(error);

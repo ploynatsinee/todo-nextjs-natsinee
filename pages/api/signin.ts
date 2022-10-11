@@ -1,7 +1,5 @@
 import pool from "../../db";
-import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { ErrorSharp } from "@mui/icons-material";
 
 type ResponseData = {
   message: string;
@@ -12,8 +10,16 @@ const signIn = async (req, res) => {
   const password = req.body.password;
 
   if (req.method === "POST") {
+
+    if (!email || !password) {
+      res
+        .status(401)
+        .json({ message: "Please fill out the information completely." });
+      return;
+    }
+
     const user = await pool.query(
-      `SELECT * FROM users WHERE email= $1 AND password= $2 `,
+      `SELECT * FROM users WHERE email = $1 AND password = crypt($2 , password) `,
       [email, password],
       (err, results) => {
         if (err) {
@@ -21,19 +27,10 @@ const signIn = async (req, res) => {
         }
         console.log(results.rows);
 
-        if (!email || !password) {
-          res
-            .status(401)
-            .json({ message: "Please fill out the information completely." });
-          return;
-        }
-
         if (!results.rows.length) {
-          res
-            .status(401)
-            .json({
-              message: "User not found, Please recheck your email or password",
-            });
+          res.status(401).json({
+            message: "User not found, Please recheck your email or password",
+          });
           return;
         }
 

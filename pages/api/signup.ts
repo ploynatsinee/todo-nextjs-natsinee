@@ -1,6 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import pool from "../../db";
-import type { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 
 type ResponseData = {
@@ -9,21 +7,45 @@ type ResponseData = {
 
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
+  const emailToValidate = req.body.email;
+  const emailRegexp =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   if (req.method === "POST") {
+    if (!name || !email || !password) {
+      res
+        .status(401)
+        .json({ message: "Please fill out the information completely." });
+      return;
+    }
+
+    if (name.length > 25) {
+      res.status(401).json({ message: "Name must less than 25 character." });
+      return;
+    }
+
+    if (password.length < 7 || password.length > 25) {
+      res
+        .status(401)
+        .json({ message: "Password must between 7-25 character." });
+      return;
+    }
+
     try {
       if (name && email && password) {
-        bcrypt.hash(password, 10).then(async (hash) => {
-          const result = await pool.query(
-            "INSERT INTO users (first_name, email, password) VALUES ($1, $2, $3) RETURNING *",
-            [name, email, password]
-          );
-          res.status(200).json({ name: name, email: email, password: hash });
-        });
-      } else {
-        res.status(204).json({ message: "Please fill out the information completely." });
+        if (emailRegexp.test(emailToValidate)) {
+          bcrypt.hash(password, 10).then(async (hash) => {
+            const result = await pool.query(
+              "INSERT INTO users (first_name, email, password) VALUES ($1, $2, crypt($3, gen_salt('bf'))) RETURNING *",
+              [name, email, password]
+            );
+            res.status(201).json({ name: name, email: email, password: hash });
+          });
+        } else {
+          res.status(401).send("Invalid Email");
+          return;
+        }
       }
-
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
