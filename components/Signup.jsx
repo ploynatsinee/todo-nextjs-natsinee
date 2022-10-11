@@ -15,8 +15,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { API_URL, axiosInstance } from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import Router from "next/router";
+import Signin from "./Signin";
 
-function Copyright(props: any) {
+function Copyright(props) {
   return (
     <Typography
       variant="body2"
@@ -37,7 +39,6 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-  // const navigate = useNavigate();
 
   const [registerData, setRegisterData] = useState({
     name: "",
@@ -46,7 +47,6 @@ export default function SignUp() {
   });
 
   const handleChange = (event) => {
-    // setRegisterData(event.target.value);
     setRegisterData({
       ...registerData,
       [event.target.name]: event.target.value,
@@ -54,28 +54,35 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (event) => {
-    try {
-      const response = await axiosInstance.post(`/signup`, registerData)
-      console.log(response);
-      // const result = await fetch(`${API_URL}/signup`, {method: "POST"}).then(
-      //   response => response.json()
-      //   )
-      //   console.log(result)
-      if (
-        response.data.includes("Please fill out the information completely.")
-      ) {
-        alert("Please fill out the information completely.");
+    event.preventDefault();
 
-        // navigate("/signin");
-        // console.log(result);
-        // if (result.data.includes("Please fill out the information completely.")) {
-        //   alert("Please fill out the information completely.");
-        // }
+    try {
+      const result = await axiosInstance.post(`/signup`, registerData);
+      console.log(result);
+
+      if (result.data == "Please fill out the information completely.") {
+        alert("Please fill out the information completely.");
+      }
+
+      if (result.data == "Name must less than 25 character.") {
+        alert("Name must less than 25 character.");
+      }
+
+      if (result.data == "Password must between 7-25 character.") {
+        alert("Password must between 7-25 character.");
+      }
+
+      if (result.data == "Invalid Email") {
+        alert("Invalid Email");
+      }
+
+      if (result.status == 201) {
+        alert("Sign up successful, Please sign in.");
+        Router.push("/signin");
       }
     } catch (err) {
       console.log(err.message);
     }
-    event.preventDefault();
   };
 
   return (
@@ -103,7 +110,6 @@ export default function SignUp() {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            {/* <form onSubmit={handleSubmit}>  */}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -114,7 +120,6 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  // value={name}
                   onChange={handleChange}
                 />
               </Grid>
@@ -126,7 +131,6 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  // value={email}
                   onChange={handleChange}
                 />
               </Grid>
@@ -139,7 +143,6 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  // value={password}
                   onChange={handleChange}
                 />
               </Grid>
@@ -152,7 +155,6 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            {/* </form> */}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href={`http://localhost:3000/signin`} variant="body2">

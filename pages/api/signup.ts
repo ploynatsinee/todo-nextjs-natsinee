@@ -14,20 +14,20 @@ const createUser = async (req, res) => {
   if (req.method === "POST") {
     if (!name || !email || !password) {
       res
-        .status(401)
-        .json({ message: "Please fill out the information completely." });
+        .status(202)
+        .send("Please fill out the information completely." );
       return;
     }
 
     if (name.length > 25) {
-      res.status(401).json({ message: "Name must less than 25 character." });
+      res.status(202).send("Name must less than 25 character.");
       return;
     }
 
     if (password.length < 7 || password.length > 25) {
       res
-        .status(401)
-        .json({ message: "Password must between 7-25 character." });
+        .status(202)
+        .send("Password must between 7-25 character.");
       return;
     }
 
@@ -39,10 +39,10 @@ const createUser = async (req, res) => {
               "INSERT INTO users (first_name, email, password) VALUES ($1, $2, crypt($3, gen_salt('bf'))) RETURNING *",
               [name, email, password]
             );
-            res.status(201).json({ name: name, email: email, password: hash });
+            res.status(201).send({ name: name, email: email, password: hash });
           });
         } else {
-          res.status(401).send("Invalid Email");
+          res.status(202).send("Invalid Email");
           return;
         }
       }
@@ -51,7 +51,7 @@ const createUser = async (req, res) => {
       console.log(error);
     }
   } else {
-    res.status(405).json({ message: "Method not allowed " });
+    res.status(405).send("Method not allowed.");
   }
 };
 
