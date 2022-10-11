@@ -54,15 +54,24 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (event) => {
-    
     try {
-      const result = await axiosInstance.post(`/signup`, registerData);
-      // alert("Your account has been created, Please signin.");
-      // navigate("/signin");
-      console.log(result);
-      // if (result.data.includes("Please fill out the information completely.")) {
-      //   alert("Please fill out the information completely.");
-      // }
+      const response = await axiosInstance.post(`/signup`, registerData)
+      console.log(response);
+      // const result = await fetch(`${API_URL}/signup`, {method: "POST"}).then(
+      //   response => response.json()
+      //   )
+      //   console.log(result)
+      if (
+        response.data.includes("Please fill out the information completely.")
+      ) {
+        alert("Please fill out the information completely.");
+
+        // navigate("/signin");
+        // console.log(result);
+        // if (result.data.includes("Please fill out the information completely.")) {
+        //   alert("Please fill out the information completely.");
+        // }
+      }
     } catch (err) {
       console.log(err.message);
     }
@@ -146,7 +155,7 @@ export default function SignUp() {
             {/* </form> */}
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href={`http://localhost:3000/signin`} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
