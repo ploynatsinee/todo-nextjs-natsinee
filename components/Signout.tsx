@@ -91,12 +91,12 @@ export default function SignOut() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link href="http://localhost:3000/signin" variant="body2">
+                  Have account ? Sign In
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="http://localhost:3000/" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
