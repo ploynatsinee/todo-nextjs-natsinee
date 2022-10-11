@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { API_URL, axiosInstance } from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import Router from "next/router";
 
 function Copyright(props: any) {
   return (
@@ -47,24 +47,29 @@ export default function SignOut() {
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      const response = await axiosInstance.post(`/signout`, signoutData)
-      console.log(response);
-      // const result = await fetch(`${API_URL}/signup`, {method: "POST"}).then(
-      //   response => response.json()
-      //   )
-      //   console.log(result)
-      if (
-        response.data.includes("Please fill out the information completely.")
-      ) {
+      const result = await axiosInstance.post(`/signout`, signoutData)
+      console.log(result);
+      
+      if (result.data == "Please fill out the information completely.") {
         alert("Please fill out the information completely.");
-        // navigate("/signin");
-        // console.log(result);
       }
+
+      if (
+        result.data == "User not found, Please recheck your email or password"
+      ) {
+        alert("User not found, Please recheck your email or password");
+      }
+
+      if (result.status == 200) {
+        Router.push("/signin");
+      }
+
     } catch (err) {
       console.log(err.message);
     }
-    event.preventDefault();
   };
 
   return (

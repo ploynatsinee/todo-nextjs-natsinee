@@ -11,8 +11,8 @@ const signOut = async (req, res) => {
   if (req.method === "POST") {
     if (!email || !password) {
       res
-        .status(401)
-        .json({ message: "Please fill out the information completely." });
+        .status(202)
+        .send("Please fill out the information completely.");
       return;
     }
 
@@ -26,16 +26,15 @@ const signOut = async (req, res) => {
         console.log(results.rows);
 
         if (!results.rows.length) {
-          res.status(401).json({
-            message: "User not found, Please recheck your email or password",
-          });
+          res.status(202).send("User not found, Please recheck your email or password"
+          );
           return;
         }
 
         if (results.rows.length) {
           try {
             res.removeHeader("user_token");
-            res.status(200).json({ message: "You are logged out" });
+            res.status(200).send( "You are logged out");
           } catch (error) {
             res.status(400).send(error);
             console.log(error);
