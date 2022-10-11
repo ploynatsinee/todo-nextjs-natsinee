@@ -1,30 +1,35 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { API_URL, axiosInstance } from "../utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Router from "next/router";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         To Do App
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -32,7 +37,6 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-
   const [signinData, setSigninData] = useState({
     email: "",
     password: "",
@@ -48,28 +52,26 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await axiosInstance.post(`/signin`, signinData)
+      const result = await axiosInstance.post(`/signin`, signinData);
       console.log(result);
-      // const result = await fetch(`${API_URL}/signup`, {method: "POST"}).then(
-      //   response => response.json()
-      //   )
-      //   console.log(result)
-    
-      if (!result) {
-        console.log(`emply, ${result}`);
+
+      if (result.data == "Please fill out the information completely.") {
+        alert("Please fill out the information completely.");
+      }
+
+      if (
+        result.data == "User not found, Please recheck your email or password"
+      ) {
+        alert("User not found, Please recheck your email or password");
+      }
+
+      if (result.status == 200) {
+        alert("Sign in successful, Welcome to my app !");
+        Router.push("/todo");
       }
     } catch (err) {
-      // if (
-      //   result.data.includes("Please fill out the information completely.")
-      // ) {
-      //   alert("Please fill out the information completely.");
       console.log(err.message);
-        // navigate("/signin");
-        // console.log(result);
-        // if (result.data.includes("Please fill out the information completely.")) {
-        //   alert("Please fill out the information completely.");
-        // }
-      }
+    }
   };
 
   return (
@@ -79,18 +81,23 @@ export default function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
