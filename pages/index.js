@@ -1,16 +1,10 @@
-import Addtodo from "../components/todo/Addtodo";
-import Textfield from "../components/todo/Textfield";
-import List from "../components/todo/List";
+import Signup from "../components/Signup"
 
-function HomePage() {
+function SignUp() {
+
   return (
-    <div className="add">
-      <h1>Welcome to Todo App</h1>
-      <Textfield />
-      <Addtodo />
-      <List />
-    </div>
-  );
+      <Signup />
+  )
 }
 
-export default HomePage;
+export default SignUp
