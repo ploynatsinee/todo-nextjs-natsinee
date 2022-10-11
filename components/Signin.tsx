@@ -12,13 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { API_URL, axiosInstance } from "../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        To Do App
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,13 +32,39 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+  const [signinData, setSigninData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    setSigninData({
+      ...signinData,
+      [event.target.name]: event.target.value,
     });
+  };
+
+  const handleSubmit = async (event) => {
+    try {
+      const response = await axiosInstance.post(`/signin`, signinData)
+      console.log(response);
+      // const result = await fetch(`${API_URL}/signup`, {method: "POST"}).then(
+      //   response => response.json()
+      //   )
+      //   console.log(result)
+      if (
+        response.data.includes("Please fill out the information completely.")
+      ) {
+        alert("Please fill out the information completely.");
+
+        // navigate("/signin");
+        // console.log(result);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+    event.preventDefault();
   };
 
   return (
@@ -66,6 +95,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -76,6 +106,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
