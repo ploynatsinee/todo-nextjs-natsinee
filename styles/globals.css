@@ -6,3 +6,18 @@
     justify-content: center;
     gap: 10px;
 }
+
+.addtodoform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.addtodo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,16 +1,25 @@
 CREATE EXTENSION pgcrypto;
 
 CREATE TABLE users (
+    id SERIAL UNIQUE, 
     first_name VARCHAR(300),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(1000),
-    PRIMARY KEY (first_name)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE todos (
-    name_user VARCHAR(300),
+    id SERIAL UNIQUE,
+    createdBy integer,
     todo VARCHAR(255),
+    PRIMARY KEY (id),
+    FOREIGN KEY(createdBy) REFERENCES users(id)
+);
+
+CREATE TABLE userstodo (
+    user_id integer,
+    post_id integer,
     isSuccessful BOOLEAN,
-    PRIMARY KEY (name_user),
-    CONSTRAINT fk_name_user FOREIGN KEY(name_user) REFERENCES users(first_name)
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(post_id) REFERENCES todos(id)
 );
