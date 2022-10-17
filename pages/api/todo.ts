@@ -5,6 +5,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const createTodo = async (req, res) => {
   const { todo } = req.body;
   const data = req.body.todo;
+  const users_id = req.query.users_id
 
   if (req.method === "POST") {
     if (!data) {
@@ -12,8 +13,8 @@ const createTodo = async (req, res) => {
       return;
     }
     try {
-      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [
-        todo,
+      await pool.query("INSERT INTO todos (todo,userstodos_id) VALUES ($1, $2) RETURNING *", [
+        todo, users_id
       ]);
       res.status(201).send("create todo success");
     } catch (error) {
@@ -35,7 +36,8 @@ const createTodo = async (req, res) => {
   if (req.method === "GET") {
     try {
       const todoData = await pool.query(
-        "SELECT todos_id, userstodos_id, todo, isSuccessful FROM todos t LEFT OUTER JOIN users u ON t.userstodos_id = u.users_id ORDER BY users_id;",
+        "SELECT todos_id, userstodos_id, todo, isSuccessful, users_id FROM todos t LEFT OUTER JOIN users u ON t.userstodos_id = u.users_id WHERE users_id = $1 ORDER BY users_id;",
+        [users_id],
         (err, results) => {
           if (err) {
             throw err;

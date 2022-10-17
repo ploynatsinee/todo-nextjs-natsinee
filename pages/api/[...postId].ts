@@ -1,4 +1,4 @@
 export default function handler(req, res) {
-  const { name } = req.query["name"];
-  res.status(200).json({ name: name});
+  const { users_id } = req.query["users_id"];
+  res.status(200).json({ user_id: users_id});
 }
