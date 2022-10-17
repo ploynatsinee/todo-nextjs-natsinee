@@ -16,15 +16,15 @@ const signIn = async (req, res) => {
     }
 
     const user = await pool.query(
-      `SELECT users_id, email, password, userstodos_id FROM users u LEFT OUTER JOIN todos t ON u.users_id = t.userstodos_id WHERE email = $1 AND password = crypt($2 , password) ORDER BY users_id`,
+      `SELECT * FROM users WHERE email = $1 AND password = crypt($2 , password)`,
       [email, password],
       (err, results) => {
         if (err) {
           throw err;
         }
-        console.log(results);
+        // console.log(results);
 
-        if (!results.rows.length) {
+        if (results.rows.length < 1) {
           res
             .status(202)
             .send("User not found, Please recheck your email or password");
