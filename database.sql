@@ -16,18 +16,3 @@ CREATE TABLE todos (
     PRIMARY KEY (todos_id),
     FOREIGN KEY(userstodos_id) REFERENCES users(users_id)
 );
-
-
-
-
-
-
---notuse
-
--- CREATE TABLE userstodo (
---     user_id INTEGER,
---     todos_id INTEGER,
---     isSuccessful BOOLEAN,
---     FOREIGN KEY(user_id) REFERENCES todos(users_id),
---     FOREIGN KEY(todos_id) REFERENCES todos(todos_id) ON DELETE CASCADE
--- );
