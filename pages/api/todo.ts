@@ -8,15 +8,11 @@ const createTodo = async (req, res) => {
 
   if (req.method === "POST") {
     if (!data) {
-      res
-        .status(202)
-        .send("Please fill out the information completely.");
+      res.status(202).send("Please fill out the information completely.");
       return;
     }
     try {
-      await pool.query(
-        "INSERT INTO todos (todo) VALUES ($1) RETURNING *"
-        , [
+      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [
         todo,
       ]);
       res.status(201).send("create todo success");
@@ -38,8 +34,17 @@ const createTodo = async (req, res) => {
 
   if (req.method === "GET") {
     try {
-      const todoData = await pool.query("SELECT * FROM todos;");
-      res.status(200).send(todoData.rows);
+      const todoData = await pool.query(
+        "SELECT todos_id, userstodos_id, todo, isSuccessful FROM todos t LEFT OUTER JOIN users u ON t.userstodos_id = u.users_id ORDER BY users_id;",
+        (err, results) => {
+          if (err) {
+            throw err;
+          }
+          console.log(results.rows);
+          res.status(200).send(results.rows);
+        }
+      );
+      // res.status(200).send(todoData.rows);
     } catch (error) {
       res.status(400).send(error);
       console.log(error);
