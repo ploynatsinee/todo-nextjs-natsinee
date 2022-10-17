@@ -14,7 +14,9 @@ const createTodo = async (req, res) => {
       return;
     }
     try {
-      await pool.query("INSERT INTO todos (todo) VALUES ($1) RETURNING *", [
+      await pool.query(
+        "INSERT INTO todos (todo) VALUES ($1) RETURNING *"
+        , [
         todo,
       ]);
       res.status(201).send("create todo success");
@@ -43,6 +45,7 @@ const createTodo = async (req, res) => {
       console.log(error);
     }
   }
+
   if (req.method === "PUT") {
     try {
       const result = await pool.query(
@@ -55,6 +58,7 @@ const createTodo = async (req, res) => {
       console.log(error);
     }
   }
+
   if (req.method === "PATCH") {
     try {
       const result = await pool.query(

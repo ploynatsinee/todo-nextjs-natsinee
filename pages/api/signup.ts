@@ -36,7 +36,7 @@ const createUser = async (req, res) => {
         if (emailRegexp.test(emailToValidate)) {
           bcrypt.hash(password, 10).then(async (hash) => {
             const result = await pool.query(
-              "INSERT INTO users (first_name, email, password) VALUES ($1, $2, crypt($3, gen_salt('bf'))) RETURNING *",
+              "INSERT INTO users (first_name, email, password) VALUES ($1, $2, crypt($3, gen_salt('bf')))",
               [name, email, password]
             );
             res.status(201).send({ name: name, email: email, password: hash });

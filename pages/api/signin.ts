@@ -16,13 +16,13 @@ const signIn = async (req, res) => {
     }
 
     const user = await pool.query(
-      `SELECT * FROM users WHERE email = $1 AND password = crypt($2 , password) `,
+      `SELECT users_id, email, password, userstodos_id FROM users u LEFT OUTER JOIN todos t ON u.users_id = t.userstodos_id WHERE email = $1 AND password = crypt($2 , password) ORDER BY users_id`,
       [email, password],
       (err, results) => {
         if (err) {
           throw err;
         }
-        // console.log(results.rows);
+        console.log(results);
 
         if (!results.rows.length) {
           res

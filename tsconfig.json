@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Signup.jsx", "components/Signin.jsx", "components/todo/Addtodo.jsx"  ],
+, "components/Signup.jsx", "components/Signin.jsx", "components/todo/Addtodo.jsx", "pages/api/signin.ts"  ],
   "exclude": [
     "node_modules"
   ]
