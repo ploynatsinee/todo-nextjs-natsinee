@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import sendTokenToUser from "./transporter"
 
-type ResponseData = {
-  message: string;
-};
+// type ResponseData = {
+//   message: string;
+// };
 
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -47,9 +47,8 @@ const createUser = async (req, res) => {
               JSON.stringify(JWT),
               process.env.MY_SECRET
             );
-            // return verifyToken
-            console.log(verifyToken);
-            // sendTokenToUser(verifyToken);
+            // console.log(verifyToken);
+            sendTokenToUser(verifyToken);
             res.status(201).send({ name: name, email: email, password: hash });
 
           });
