@@ -15,9 +15,7 @@ const createUser = async (req, res) => {
 
   if (req.method === "POST") {
     if (!name || !email || !password) {
-      res
-        .status(202)
-        .send("Please fill out the information completely." );
+      res.status(202).send("Please fill out the information completely.");
       return;
     }
 
@@ -27,9 +25,7 @@ const createUser = async (req, res) => {
     }
 
     if (password.length < 7 || password.length > 25) {
-      res
-        .status(202)
-        .send("Password must between 7-25 character.");
+      res.status(202).send("Password must between 7-25 character.");
       return;
     }
 
@@ -41,7 +37,19 @@ const createUser = async (req, res) => {
               "INSERT INTO users (first_name, email, password) VALUES ($1, $2, crypt($3, gen_salt('bf')))",
               [name, email, password]
             );
+
+            const JWT = await pool.query(
+              `SELECT users_id, first_name FROM users WHERE first_name= $1`,
+              [name]
+            );
+            const verifyToken = jwt.sign(
+              JSON.stringify(JWT),
+              process.env.MY_SECRET
+            );
+            // return verifyToken
+            console.log(verifyToken);
             res.status(201).send({ name: name, email: email, password: hash });
+
           });
         } else {
           res.status(202).send("Invalid Email");
