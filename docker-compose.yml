@@ -28,3 +28,8 @@ services:
     user: "501:20"
     env_file:
       - .env
+  smtp-server:
+    image: reachfive/fake-smtp-server:latest
+    restart: unless-stopped
+    ports:
+      - 1025:1025

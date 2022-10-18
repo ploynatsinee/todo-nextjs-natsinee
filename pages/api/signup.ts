@@ -2,6 +2,7 @@ import pool from "../../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import sendTokenToUser from "./transporter"
 
 type ResponseData = {
   message: string;
@@ -48,6 +49,7 @@ const createUser = async (req, res) => {
             );
             // return verifyToken
             console.log(verifyToken);
+            // sendTokenToUser(verifyToken);
             res.status(201).send({ name: name, email: email, password: hash });
 
           });
