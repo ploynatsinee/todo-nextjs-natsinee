@@ -8,6 +8,7 @@ import sendTokenToUser from "./transporter"
 //   message: string;
 // };
 
+
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
   const emailToValidate = req.body.email;

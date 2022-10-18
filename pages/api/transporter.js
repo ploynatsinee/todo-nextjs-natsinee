@@ -1,11 +1,15 @@
 import nodemailer from "nodemailer";
 
 const sendTokenToUser = async (req, res) => {
-  const { email } = "admin15@gmail.com";
+  const { email } = "admin19@gmail.com";
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp-server",
       port: 1025,
+    //   secureConnection: false,
+    //   tls: {
+    //     ciphers:'SSLv3'
+    // }
     });
     const messageStatus = transporter.sendMail({
       from: "My Company <company@companydomain.org>",
