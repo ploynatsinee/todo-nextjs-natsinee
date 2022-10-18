@@ -5,6 +5,7 @@ CREATE TABLE users (
     first_name VARCHAR(300),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(1000),
+    verified BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (users_id)
 );
 
