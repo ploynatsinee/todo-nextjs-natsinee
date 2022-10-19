@@ -33,5 +33,5 @@ services:
     restart: unless-stopped
     # host: 'smtp-server'
     ports:
-      - 1025:1025
-      - 1080:1080
+      - '1025:1025'
+      - '1080:1080'
