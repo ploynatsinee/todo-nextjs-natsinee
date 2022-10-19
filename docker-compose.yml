@@ -31,6 +31,7 @@ services:
   smtp-server:
     image: reachfive/fake-smtp-server:latest
     restart: unless-stopped
-    hostname: 'smtp-server'
+    # host: 'smtp-server'
     ports:
       - 1025:1025
+      - 1080:1080
