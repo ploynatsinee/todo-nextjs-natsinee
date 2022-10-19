@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import smtpTransport from "nodemailer-smtp-transport";
 
 const sendTokenToUser = async (req, res) => {
-  const { email } = "admin36@gmail.com";
+  const { email } = "admin44@gmail.com";
   try {
 
     const transporter = nodemailer.createTransport(
