@@ -1,16 +1,24 @@
 import nodemailer from "nodemailer";
+import smtpTransport from "nodemailer-smtp-transport";
 
 const sendTokenToUser = async (req, res) => {
-  const { email } = "admin19@gmail.com";
+  const { email } = "admin24@gmail.com";
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp-server",
-      port: 1025,
-    //   secureConnection: false,
-    //   tls: {
-    //     ciphers:'SSLv3'
-    // }
-    });
+    const transporter = nodemailer.createTransport(
+      smtpTransport("SMTP", {
+        host: "smtp-server",
+        port: 1025,
+        auth: {
+          user: "user@mailserver.com",
+          pass: "passwd",
+        },
+        authMethod: "NTLM",
+        secure: false,
+        tls: { rejectUnauthorized: false },
+        debug: true,
+      })
+    );
+
     const messageStatus = transporter.sendMail({
       from: "My Company <company@companydomain.org>",
       to: email,
