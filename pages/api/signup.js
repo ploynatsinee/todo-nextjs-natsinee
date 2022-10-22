@@ -47,7 +47,7 @@ const createUser = async (req, res) => {
 
             // console.log(JWT);
 
-            // sendTokenToUser(verifyToken);
+            sendTokenToUser(email);
             res.status(201).send({ name: name, email: email, password: hash });
           });
         } else {
