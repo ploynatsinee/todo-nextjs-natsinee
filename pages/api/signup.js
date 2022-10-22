@@ -2,12 +2,11 @@ import pool from "../../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import sendTokenToUser from "./transporter"
+import sendTokenToUser from "./transporter";
 
 // type ResponseData = {
 //   message: string;
 // };
-
 
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -40,18 +39,16 @@ const createUser = async (req, res) => {
               [name, email, password]
             );
 
-            const JWT = await pool.query(
-              `SELECT users_id, first_name FROM users WHERE first_name= $1`,
-              [name]
+            const userToken = await pool.query(
+                `UPDATE users SET user_token = crypt('new password', gen_salt('md5')) WHERE first_name= $1`,
+                [name]
             );
-            const verifyToken = jwt.sign(
-              JSON.stringify(JWT),
-              process.env.MY_SECRET
-            );
-            // console.log(verifyToken);
-            sendTokenToUser(verifyToken);
-            res.status(201).send({ name: name, email: email, password: hash });
+            // console.log(userToken);
 
+            // console.log(JWT);
+
+            // sendTokenToUser(verifyToken);
+            res.status(201).send({ name: name, email: email, password: hash });
           });
         } else {
           res.status(202).send("Invalid Email");
