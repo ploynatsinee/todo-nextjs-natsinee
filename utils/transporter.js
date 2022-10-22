@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import smtpTransport from "nodemailer-smtp-transport";
 
-const sendTokenToUser = (email) => {
+const sendTokenToUser = (email, url) => {
   
   try {
     const transporter = nodemailer.createTransport({
@@ -16,7 +16,7 @@ const sendTokenToUser = (email) => {
       from: "My Company <company@companydomain.org>",
       to: email,
       subject: "Hi! Please confirm your email.",
-      text: "This is the email content",
+      text: `This is the email content ${url}`,
     });
   
   } catch (error) {

@@ -39,15 +39,19 @@ const createUser = async (req, res) => {
               [name, email, password]
             );
 
-            const userToken = await pool.query(
+            const genUserToken = await pool.query(
                 `UPDATE users SET user_token = crypt($1, gen_salt('md5')) WHERE first_name= $2`,
-                [email,name]
+                [email, name]
             );
-            // console.log(userToken);
 
-            // console.log(JWT);
+            const queryUserToken = await pool.query(
+              `SELECT user_token FROM users WHERE email = $1`,[email]
+            );
 
-            sendTokenToUser(email);
+            const values = Object.values(queryUserToken.rows);
+            const index = values.find(item => item.user_token != undefined);
+            sendTokenToUser(email, index.user_token);
+
             res.status(201).send({ name: name, email: email, password: hash });
           });
         } else {
