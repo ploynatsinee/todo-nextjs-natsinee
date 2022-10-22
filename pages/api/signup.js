@@ -2,7 +2,7 @@ import pool from "../../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import sendTokenToUser from "./transporter";
+import sendTokenToUser from "../../utils/transporter";
 
 // type ResponseData = {
 //   message: string;
@@ -40,8 +40,8 @@ const createUser = async (req, res) => {
             );
 
             const userToken = await pool.query(
-                `UPDATE users SET user_token = crypt('new password', gen_salt('md5')) WHERE first_name= $1`,
-                [name]
+                `UPDATE users SET user_token = crypt($1, gen_salt('md5')) WHERE first_name= $2`,
+                [email,name]
             );
             // console.log(userToken);
 
