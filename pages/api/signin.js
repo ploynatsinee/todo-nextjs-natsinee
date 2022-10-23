@@ -1,9 +1,9 @@
 import pool from "../../db";
 import jwt from "jsonwebtoken";
 
-type ResponseData = {
-  message: string;
-};
+// type ResponseData = {
+//   message: string;
+// };
 
 const signIn = async (req, res) => {
   const email = req.body.email;
@@ -22,7 +22,6 @@ const signIn = async (req, res) => {
         if (err) {
           throw err;
         }
-        // console.log(results);
 
         if (results.rows.length < 1) {
           res
@@ -30,6 +29,16 @@ const signIn = async (req, res) => {
             .send("User not found, Please recheck your email or password");
           return;
         }
+        const values = Object.values(results.rows);
+        const index = values.find(results => results.verified != undefined);
+        
+        if(index.verified == false) {
+          res
+            .status(202)
+            .send("Please confirm your email before sign in.");
+          return;
+        }
+
 
         if (results.rows.length) {
           try {
