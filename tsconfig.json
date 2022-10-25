@@ -19,10 +19,16 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+  // "files": [
+  //   "./pages/index.js"
+  // ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/ ."
 , "components/Signup.jsx", "components/Signin.jsx", "components/todo/Addtodo.jsx", "pages/api/signin.js", "pages/api/signup.js", "utils/transporter.js", "cypress/e2e/spec.cy.js", "cypress.config.js"  ],
   "exclude": [
     "node_modules"
