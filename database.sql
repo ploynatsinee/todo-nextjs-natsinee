@@ -14,7 +14,7 @@ CREATE TABLE todos (
     todos_id SERIAL UNIQUE,
     userstodos_id INTEGER,
     todo VARCHAR(255),
-    isSuccessful BOOLEAN,
+    isSuccessful BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (todos_id),
     FOREIGN KEY(userstodos_id) REFERENCES users(users_id)
 );
