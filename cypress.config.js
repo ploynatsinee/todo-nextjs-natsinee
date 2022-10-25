@@ -1,9 +1,16 @@
-import { defineConfig } from "cypress";
+const { defineConfig } = require("cypress");
+const path = require("path");
 
-export default defineConfig({
+module.exports = defineConfig({
+  chromeWebSecurity: false,
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    baseUrl: "http://web:3000",
   },
+  // output: {
+  //   filename: "app.bundle.js",
+  // },
+  // module: {
+  //   rules: [{ test: /\.txt$/, use: "raw-loader" }],
+  // },
+  mode: "production",
 });
