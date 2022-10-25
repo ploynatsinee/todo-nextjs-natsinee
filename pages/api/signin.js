@@ -1,5 +1,8 @@
 import pool from "../../db";
 import jwt from "jsonwebtoken";
+// import nextCookie from 'next-cookies'
+import cookie from "cookie";
+import { setCookie, getCookie } from "cookies-next";
 
 // type ResponseData = {
 //   message: string;
@@ -30,21 +33,28 @@ const signIn = async (req, res) => {
           return;
         }
         const values = Object.values(results.rows);
-        const index = values.find(results => results.verified != undefined);
-        
-        if(index.verified == false) {
-          res
-            .status(202)
-            .send("Please confirm your email before sign in.");
+        const index = values.find((results) => results.verified != undefined);
+
+        if (index.verified == false) {
+          res.status(202).send("Please confirm your email before sign in.");
           return;
         }
-
 
         if (results.rows.length) {
           try {
             const JWT = req.body.email;
             const token = jwt.sign(JSON.stringify(JWT), process.env.MY_SECRET);
-            res.setHeader("user_token", token);
+          
+            res.setHeader(
+              "Set-Cookie",
+              cookie.serialize("token", token, {
+                httpOnly: true,
+                samesite: 'strict',
+                maxage: 3600,
+                path: '/'
+              })
+            );
+
             res.status(200).send("Signin success");
           } catch (error) {
             res.status(400).send(error);
