@@ -6,9 +6,9 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: "http://web:3000",
   },
-  output: {
-    filename: "index.js",
-  },
+  // output: {
+  //   filename: "index.js",
+  // },
   // module: {
   //   rules: [{ test: /\.txt$/, use: "raw-loader" }],
   // },
