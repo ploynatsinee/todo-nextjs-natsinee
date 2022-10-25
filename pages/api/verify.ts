@@ -13,7 +13,7 @@ const verifyUser = async (req, res) => {
         }
 
         if (results.rows.length < 1) {
-          res.status(202).send("Token not found, Please resend token");
+          res.status(202).send("Token not found, Please sign up.");
           return;
         }
 
