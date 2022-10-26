@@ -7,6 +7,7 @@ module.exports = defineConfig({
     baseUrl: "http://web:3000",
     specPattern: [
       "cypress/e2e/signup-validate.cy.ts",
+      "cypress/e2e/signin-validate.cy.ts",
       "cypress/e2e/spec.cy.ts",
       "cypress/e2e/email.cy.ts",
       "cypress/e2e/signin.cy.ts",
