@@ -5,12 +5,12 @@ describe("e2e test", () => {
   });
 
   it("name", () => {
-    const name = "cypress23";
+    const name = "cypress27";
     cy.get("#firstName").type(name).should("have.value", name);
   });
 
   it("email", () => {
-    const email = "cypress3@gmail.com";
+    const email = "cypress27@gmail.com";
     cy.get("#email").type(email).should("have.value", email);
   });
 
@@ -34,18 +34,5 @@ describe("e2e test", () => {
     cy.on("window:alert", (str) => {
       expect(str).to.equal("Sign up successful, Please comfirm your email.");
     });
-  });
-});
-context("navigate to smtp", () => {
-  beforeEach(() => {
-    cy.visit("http://0.0.0.0:1080/");
-  });
-
-  it("click email pop up", () => {
-    cy.get(".card-header").click();
-  });
-
-  it("click verify link", () => {
-    // cy.get('p > a').click()
   });
 });
