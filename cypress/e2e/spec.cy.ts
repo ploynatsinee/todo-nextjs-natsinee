@@ -5,12 +5,12 @@ describe("e2e test", () => {
   });
 
   it("name", () => {
-    const name = "cypress27";
+    const name = "cypress";
     cy.get("#firstName").type(name).should("have.value", name);
   });
 
   it("email", () => {
-    const email = "cypress28@gmail.com";
+    const email = "cypress1324@gmail.com";
     cy.get("#email").type(email).should("have.value", email);
   });
 

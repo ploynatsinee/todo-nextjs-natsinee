@@ -5,6 +5,7 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
   e2e: {
     baseUrl: "http://web:3000",
+    // baseUrl: "http://localhost:3000",
     specPattern: [
       "cypress/e2e/signup-validate.cy.ts",
       "cypress/e2e/signin-validate.cy.ts",

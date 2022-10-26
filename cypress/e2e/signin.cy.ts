@@ -4,7 +4,7 @@ describe("e2e test sign in", () => {
   });
 
   it("email", () => {
-    const email = "cypress28@gmail.com";
+    const email = "cypress1324@gmail.com";
     cy.get("#email").type(email).should("have.value", email);
   });
 
