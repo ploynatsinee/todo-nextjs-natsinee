@@ -5,7 +5,7 @@ describe("e2e test", () => {
   });
 
   it("name", () => {
-    const name = "cypress22";
+    const name = "cypress23";
     cy.get("#firstName").type(name).should("have.value", name);
   });
 
@@ -35,30 +35,17 @@ describe("e2e test", () => {
       expect(str).to.equal("Sign up successful, Please comfirm your email.");
     });
   });
-
-  // it('navigate to smtp', () => {
-
-  // })
 });
-// context("navigate to smtp", () => {
-//   beforeEach(() => {
-//     // cy.intercept()
-//   })
+context("navigate to smtp", () => {
+  beforeEach(() => {
+    cy.visit("http://0.0.0.0:1080/");
+  });
 
-//   it("Add a new todo on submit", () => {
-//     const itemText = 'Buy eggs'
-//     cy.route('POST', '/api/todos', {
-//       name: itemText,
-//       id: 1,
-//       isComplete: false
-//     })
-//     cy.get(".new-todo")
-//       .type(itemText)
-//       .type("{enter}")
-//       .should('have.value', '')
+  it("click email pop up", () => {
+    cy.get(".card-header").click();
+  });
 
-//     cy.get('.todo-list li')
-//       .should('have.length', 1)
-//       .and('contain', itemText)
-// })
-// });
+  it("click verify link", () => {
+    // cy.get('p > a').click()
+  });
+});
