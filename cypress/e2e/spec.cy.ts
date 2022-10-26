@@ -10,7 +10,7 @@ describe("e2e test", () => {
   });
 
   it("email", () => {
-    const email = "cypress27@gmail.com";
+    const email = "cypress28@gmail.com";
     cy.get("#email").type(email).should("have.value", email);
   });
 
