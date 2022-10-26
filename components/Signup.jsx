@@ -73,7 +73,7 @@ export default function SignUp() {
       }
 
       if (result.status == 201) {
-        alert("Sign up successful, Please sign in.");
+        alert("Sign up successful, Please comfirm your email.");
         Router.push("/signin");
       }
     } catch (err) {
