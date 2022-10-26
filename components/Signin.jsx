@@ -59,6 +59,10 @@ export default function SignIn() {
         alert("Please fill out the information completely.");
       }
 
+      if (result.data == "Please confirm your email before sign in.") {
+        alert("Please confirm your email before sign in.");
+      }
+
       if (
         result.data == "User not found, Please recheck your email or password"
       ) {
@@ -67,7 +71,7 @@ export default function SignIn() {
 
       if (result.status == 200) {
         alert("Sign in successful, Welcome to my app !");
-        Router.push("/todo");
+        Router.push("/todo/?users_id=", result.data);
       }
     } catch (err) {
       console.log(err.message);

@@ -17,51 +17,41 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Router from "next/router";
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-      To Do App
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props: any) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//       To Do App
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const theme = createTheme();
 
 export default function SignOut() {
 
-  const [signoutData, setSignoutData] = useState({
-    email: "",
-    password: "",
-  });
+  // const [signoutData, setSignoutData] = useState({
+  //   email: "",
+  //   password: "",
+  // });
 
-  const handleChange = (event) => {
-    setSignoutData({
-      ...signoutData,
-      [event.target.name]: event.target.value,
-    });
-  };
+  // const handleChange = (event) => {
+  //   setSignoutData({
+  //     ...signoutData,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const result = await axiosInstance.post(`/signout`, signoutData)
+      const result = await axiosInstance.post(`/signout`)
       console.log(result);
-      
-      if (result.data == "Please fill out the information completely.") {
-        alert("Please fill out the information completely.");
-      }
-
-      if (
-        result.data == "User not found, Please recheck your email or password"
-      ) {
-        alert("User not found, Please recheck your email or password");
-      }
 
       if (result.status == 200) {
         Router.push("/signin");
@@ -75,7 +65,7 @@ export default function SignOut() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Box
           sx={{
             marginTop: 8,
@@ -84,14 +74,14 @@ export default function SignOut() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
-          </Avatar>
+          </Avatar> */}
           <Typography component="h1" variant="h5">
-            Sign out
+            Click to Sign out
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -101,8 +91,8 @@ export default function SignOut() {
               autoComplete="email"
               autoFocus
               onChange={handleChange}
-            />
-            <TextField
+            /> */}
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -112,11 +102,11 @@ export default function SignOut() {
               id="password"
               autoComplete="current-password"
               onChange={handleChange}
-            />
-            <FormControlLabel
+            /> */}
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            />  */}
             <Button
               type="submit"
               fullWidth
@@ -125,7 +115,7 @@ export default function SignOut() {
             >
               Sign Out
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="http://localhost:3000/signin" variant="body2">
                   Have account ? Sign In
@@ -136,10 +126,10 @@ export default function SignOut() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

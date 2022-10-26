@@ -13,8 +13,8 @@ services:
       - .env
     links:
       - postgres
-    networks:
-     - app-network
+    # networks:
+    #  - app-network
 
   postgres:
     container_name: postgres
@@ -47,11 +47,11 @@ services:
     environment:
       - CYPRESS_baseUrl=http://web:3000
     command: npx cypress run
-    networks:
-     - app-network
+    # networks:
+    #  - app-network
     depends_on:
       - web
 
-networks:
-    app-network:
-        driver: bridge
+# networks:
+#     app-network:
+#         driver: bridge

@@ -43,7 +43,7 @@ const createUser = async (req, res) => {
                 `UPDATE users SET user_token = crypt($1, gen_salt('md5')) WHERE first_name= $2`,
                 [email, name]
             );
-
+           
             const queryUserToken = await pool.query(
               `SELECT user_token FROM users WHERE email = $1`,[email]
             );
