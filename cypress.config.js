@@ -8,7 +8,8 @@ module.exports = defineConfig({
     specPattern: [
       "cypress/e2e/spec.cy.ts",
       "cypress/e2e/email.cy.ts",
-      "cypress/e2e/signin.cy.ts"
+      "cypress/e2e/signin.cy.ts",
+      "cypress/e2e/signout.cy.ts"
     ],
   },
   // output: {
