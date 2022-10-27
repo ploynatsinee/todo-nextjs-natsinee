@@ -71,7 +71,7 @@ export default function SignIn() {
 
       if (result.status == 200) {
         alert("Sign in successful, Welcome to my app !");
-        Router.push("/todo/?users_id=", result.data);
+        Router.push("/todo/?users_id=" + result.data);
       }
     } catch (err) {
       console.log(err.message);

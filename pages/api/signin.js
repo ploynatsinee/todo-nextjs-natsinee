@@ -4,10 +4,6 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { setCookie, getCookie } from "cookies-next";
 
-// type ResponseData = {
-//   message: string;
-// };
-
 const signIn = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -44,18 +40,18 @@ const signIn = async (req, res) => {
           try {
             const JWT = req.body.email;
             const token = jwt.sign(JSON.stringify(JWT), process.env.MY_SECRET);
-          
+
             res.setHeader(
               "Set-Cookie",
               cookie.serialize("token", token, {
                 httpOnly: true,
-                samesite: 'strict',
+                samesite: "strict",
                 maxage: 3600,
-                path: '/'
+                path: "/",
               })
             );
 
-            res.status(200).send("Signin success");
+            res.status(200).send(index.users_id);
           } catch (error) {
             res.status(400).send(error);
             console.log(error);

@@ -7,16 +7,22 @@ import { API_URL, axiosInstance } from "../../utils/axiosInstance";
 import { useState, useEffect } from "react";
 
 export default function BasicButtons() {
-  const [todoData, setTodoData] = useState({ todo: ""});
+  const [todoData, setTodoData] = useState({ todo: "" });
 
   const handleChange = (event) => {
-    setTodoData({...todoData,[event.target.name]: event.target.value});
+    setTodoData({ ...todoData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await axiosInstance.post(`/todo`, todoData);
+      let userid = (new URLSearchParams(window.location.search)).get("users_id")
+      console.log(userid)
+
+      const result = await axiosInstance.post(
+        `/todo/?users_id=${userid}`,
+        todoData
+      );
       console.log(result);
 
       if (result.data == "Please fill out the information completely.") {
@@ -47,12 +53,11 @@ export default function BasicButtons() {
         />
         <div className="addtodo-btn">
           <Stack spacing={2} direction="row">
-          <Button type="submit" variant="contained">
-            Add todo
-          </Button>
-        </Stack>
+            <Button type="submit" variant="contained">
+              Add todo
+            </Button>
+          </Stack>
         </div>
-        
       </Box>
     </div>
   );

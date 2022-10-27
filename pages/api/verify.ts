@@ -12,10 +12,10 @@ const verifyUser = async (req, res) => {
           throw err;
         }
 
-        if (results.rows.length < 1) {
-          res.status(202).send("Token not found, Please sign up.");
-          return;
-        }
+        // if (results.rows.length < 1) {
+        //   res.status(202).send("Token not found, Please sign up.");
+        //   return;
+        // }
 
         if (results.rows.length) {
           pool.query(`UPDATE users SET verified = true WHERE user_token= $1`, [

@@ -37,20 +37,20 @@ services:
       - '1025:1025'
       - '1080:1080'
 
-  cypress:
-    image: "cypress/included:10.8.0"
-    container_name: cypress
-    volumes: 
-      - ./cypress:/cypress
-      - ./cypress.config.js:/cypress.config.js
-      - ./tsconfig.json:/cypress/tsconfig.json
-    environment:
-      - CYPRESS_baseUrl=http://web:3000
-      # - CYPRESS_smtpServer="http://0.0.0.0:1080/"
-      - CYPRESS_smtpServer="http://smtp-server:1080/"
-      - CYPRESS_smtpPort=1025
-    command: npx cypress run
-    depends_on:
-      - web
-      - smtp-server
+  # cypress:
+  #   image: "cypress/included:10.8.0"
+  #   container_name: cypress
+  #   volumes: 
+  #     - ./cypress:/cypress
+  #     - ./cypress.config.js:/cypress.config.js
+  #     - ./tsconfig.json:/cypress/tsconfig.json
+  #   environment:
+  #     - CYPRESS_baseUrl=http://web:3000
+  #     # - CYPRESS_smtpServer="http://0.0.0.0:1080/"
+  #     - CYPRESS_smtpServer="http://smtp-server:1080/"
+  #     - CYPRESS_smtpPort=1025
+  #   command: npx cypress run
+  #   depends_on:
+  #     - web
+  #     - smtp-server
       
