@@ -52,3 +52,5 @@ services:
     command: npx cypress run
     depends_on:
       - web
+      - smtp-server
+      
