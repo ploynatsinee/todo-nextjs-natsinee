@@ -1,6 +1,6 @@
 describe("e2e test sign in", () => {
   it("should navigate to the sign in page", () => {
-    cy.visit("http://localhost:3000/signin");
+    cy.visit("http://web:3000/signin");
   });
 
   it("email", () => {

@@ -1,6 +1,7 @@
 describe("navigate to smtp", () => {
   it("navigate to smtp", () => {
-    cy.visit("http://0.0.0.0:1080/");
+    // cy.visit("http://0.0.0.0:1080/");
+    cy.visit("http://smtp-server:1080/");
   });
 
   it("click email pop up", () => {

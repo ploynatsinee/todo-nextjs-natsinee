@@ -1,6 +1,6 @@
 describe("e2e test", () => {
   it("should navigate to the sign up page", () => {
-    cy.visit("http://localhost:3000/");
+    cy.visit("http://web:3000/");
   });
 
   it("name", () => {
@@ -35,18 +35,18 @@ describe("e2e test", () => {
     });
   });
 
-  it("should navigate to the sign in page", () => {
-    cy.visit("http://localhost:3000/signin");
-  });
+  // it("should navigate to the sign in page", () => {
+  //   cy.visit("http://localhost:3000/signin");
+  // });
 
   it("email", () => {
     const email = "notvalidate@gmail.com";
-    cy.get("#email").type(email).should("have.value", email);
+    cy.get("#email").clear().type(email).should("have.value", email);
   });
 
   it("password", () => {
     const password = "notvalidate";
-    cy.get("#password").type(password).should("have.value", password);
+    cy.get("#password").clear().type(password).should("have.value", password);
   });
 
   it("click btn sign in", () => {

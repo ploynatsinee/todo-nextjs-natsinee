@@ -1,6 +1,6 @@
 describe("e2e test sign out", () => {
     it("should navigate to the sign in page", () => {
-      cy.visit("http://localhost:3000/todo"); // have query will fix later
+      cy.visit("http://web:3000/todo"); // have query will fix later
     });
   
     it("click btn sign out", () => {

@@ -1,7 +1,6 @@
 describe("e2e test", () => {
   it("should navigate to the sign up page", () => {
-    cy.visit("http://localhost:3000/");
-    // cy.visit('https://nextjs.org/docs/testing#cypress')
+    cy.visit("http://web:3000/");
   });
 
   it("name", () => {
@@ -31,6 +30,7 @@ describe("e2e test", () => {
   });
 
   it("click alert", () => {
+    cy.wait(3000)
     cy.on("window:alert", (str) => {
       expect(str).to.equal("Sign up successful, Please comfirm your email.");
     });

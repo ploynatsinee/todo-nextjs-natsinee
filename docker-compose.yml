@@ -13,8 +13,6 @@ services:
       - .env
     links:
       - postgres
-    # networks:
-    #  - app-network
 
   postgres:
     container_name: postgres
@@ -31,6 +29,7 @@ services:
     user: "501:20"
     env_file:
       - .env
+
   smtp-server:
     image: reachfive/fake-smtp-server:latest
     restart: unless-stopped
@@ -44,14 +43,12 @@ services:
     volumes: 
       - ./cypress:/cypress
       - ./cypress.config.js:/cypress.config.js
+      - ./tsconfig.json:/cypress/tsconfig.json
     environment:
       - CYPRESS_baseUrl=http://web:3000
+      # - CYPRESS_smtpServer="http://0.0.0.0:1080/"
+      - CYPRESS_smtpServer="http://smtp-server:1080/"
+      - CYPRESS_smtpPort=1025
     command: npx cypress run
-    # networks:
-    #  - app-network
     depends_on:
       - web
-
-# networks:
-#     app-network:
-#         driver: bridge
