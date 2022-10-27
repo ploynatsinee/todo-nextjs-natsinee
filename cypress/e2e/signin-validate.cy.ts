@@ -22,6 +22,4 @@ describe("sign in integration test", () => {
       );
     });
   });
-
-  // it("user not validate email", () => {});
 });
