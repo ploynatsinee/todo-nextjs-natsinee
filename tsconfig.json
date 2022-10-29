@@ -6,7 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["cypress", "jest"],
+    "types": [
+      "cypress",
+      "jest"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -17,7 +20,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "preserve"
   },
   // "files": [
@@ -30,9 +33,19 @@
     "**/*.js",
     "**/*.jsx",
     "**/ .",
-    "**/*.spec.ts"
-, "components/Signup.jsx", "components/Signin.jsx", "components/todo/Addtodo.jsx", "pages/api/signin.js", "pages/api/signup.js", "utils/transporter.js", "cypress/e2e/spec.cy.js", "cypress.config.js"  ],
+    "**/*.spec.ts",
+    "components/Signup.jsx",
+    "components/Signin.jsx",
+    "components/todo/Addtodo.jsx",
+    "pages/api/signin.js",
+    "pages/api/signup.js",
+    "utils/transporter.js",
+    "cypress/e2e/spec.cy.js",
+    "cypress.config.js"
+  ],
   "exclude": [
-    "node_modules", "**/*.spec.ts", "**/*.test.ts"
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ]
 }

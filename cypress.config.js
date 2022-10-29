@@ -19,11 +19,5 @@ module.exports = defineConfig({
       "cypress/e2e/signout.cy.ts"
     ],
   },
-  // output: {
-  //   filename: "index.js",
-  // },
-  // module: {
-  //   rules: [{ test: /\.txt$/, use: "raw-loader" }],
-  // },
   mode: "production",
 });

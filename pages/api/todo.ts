@@ -12,7 +12,7 @@ const createTodo = async (req, res) => {
       return;
     }
     try {
-      await pool.query("INSERT INTO todos (todo,userstodos_id) VALUES ($1, $2) RETURNING *", [
+      await pool.query("INSERT INTO todos (todo,users_id) VALUES ($1, $2) RETURNING *", [
         todo, users_id
       ]);
       res.status(201).send("create todo success");
@@ -24,7 +24,7 @@ const createTodo = async (req, res) => {
 
   if (req.method === "DELETE") {
     try {
-      pool.query(`DELETE FROM todos WHERE todo= $1 `, [todo]);
+      pool.query(`DELETE FROM todos WHERE users_id= $1 `, [users_id]);
       res.status(200).send("delete todo success");
     } catch (error) {
       res.status(400).send(error);
@@ -35,7 +35,7 @@ const createTodo = async (req, res) => {
   if (req.method === "GET") {
     try {
       const todoData = await pool.query(
-        "SELECT todos_id, userstodos_id, todo, isSuccessful, users_id FROM todos t LEFT OUTER JOIN users u ON t.userstodos_id = u.users_id WHERE users_id = $1 ORDER BY users_id;",
+        "SELECT todos_id, u.users_id, todo, isSuccessful, t.users_id FROM todos t LEFT OUTER JOIN users u ON t.users_id = u.users_id WHERE u.users_id = $1 ORDER BY u.users_id;",
         [users_id],
         (err, results) => {
           if (err) {
