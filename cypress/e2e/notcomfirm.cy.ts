@@ -1,6 +1,7 @@
-describe("e2e test", () => {
+describe("e2e test not confirm", () => {
   it("should navigate to the sign up page", () => {
     cy.visit("http://web:3000/");
+    // cy.visit("http://localhost:3000/");
   });
 
   it("name", () => {
@@ -35,9 +36,10 @@ describe("e2e test", () => {
     });
   });
 
-  // it("should navigate to the sign in page", () => {
-  //   cy.visit("http://localhost:3000/signin");
-  // });
+  it("should navigate to the sign in page", () => {
+    // cy.visit("http://localhost:3000/signin");
+    cy.visit('')
+  });
 
   it("email", () => {
     const email = "notvalidate@gmail.com";
@@ -62,7 +64,7 @@ describe("e2e test", () => {
 
   it("click alert", () => {
     cy.on("window:alert", (str) => {
-      expect(str).to.equal("Please confirm your email before sign in.");
+      expect(str).to.equal("Please confirm your email before sign in...");
     });
   });
 });
