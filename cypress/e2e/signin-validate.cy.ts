@@ -1,6 +1,7 @@
 describe("sign in integration test", () => {
   it("should navigate to the sign in page", () => {
     cy.visit("http://web:3000/signin");
+    // cy.visit("http://localhost:3000/signin");
   });
 
   it("no input", () => {

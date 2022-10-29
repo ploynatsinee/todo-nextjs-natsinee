@@ -5,11 +5,15 @@ describe("navigate to smtp", () => {
   });
 
   it("click email pop up", () => {
-    cy.get(".card-header").click();
+    // cy.get(".card-header")
+    cy.get(':nth-child(2) > .card-header')
+    .click();
   });
 
   it("click verify link", () => {
-    cy.get(".card-header");
-    cy.get('p > a[href*="api/verify"]').click();
+    // cy.get(".card-header");
+    cy.get(':nth-child(2) > .collapse > .card-body > div > p > a')
+    // cy.get('p > a[href*="api/verify"]')
+    .click();
   });
 });

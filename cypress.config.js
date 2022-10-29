@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const path = require("path");
 
 module.exports = defineConfig({
+  projectId: 'e4weot',
   chromeWebSecurity: false,
   e2e: {
     baseUrl: "http://web:3000",

@@ -49,6 +49,7 @@ services:
       # - CYPRESS_smtpServer="http://0.0.0.0:1080/"
       - CYPRESS_smtpServer="http://smtp-server:1080/"
       - CYPRESS_smtpPort=1025
+      - ELECTRON_EXTRA_LAUNCH_ARGS=--disable-gpu-sandbox
     command: npx cypress run
     depends_on:
       - web
