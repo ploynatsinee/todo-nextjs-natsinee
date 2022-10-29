@@ -19,12 +19,13 @@ describe("e2e test", () => {
 
   it("password", () => {
     const password = "cypress22cypress";
-    cy.get("#password").type(`${password}{enter}`).should("have.value", password).wait(3500)
+    cy.get("#password").type(password).should("have.value", password).wait(3500)
     // .type("{enter}");
   });
 
   it("click btn sign up", () => {
-    cy.get(".MuiButtonBase-root").click();
+    cy.get(".MuiButtonBase-root")
+    .click();
     cy.intercept(
       {
         method: "POST",
