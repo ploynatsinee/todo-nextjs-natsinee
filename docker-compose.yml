@@ -46,11 +46,12 @@ services:
       - ./tsconfig.json:/cypress/tsconfig.json
     environment:
       - CYPRESS_baseUrl=http://web:3000
-      # - CYPRESS_smtpServer="http://0.0.0.0:1080/"
-      - CYPRESS_smtpServer="http://smtp-server:1080/"
+      # - CYPRESS_smtpServer="http://0.0.0.0:1080/"  # for local smtp server
+      - CYPRESS_smtpServer="http://smtp-server:1080/" # for docker smtp server
       - CYPRESS_smtpPort=1025
       - ELECTRON_EXTRA_LAUNCH_ARGS=--disable-gpu-sandbox
     command: npx cypress run
+    # ipc: host
     depends_on:
       - web
       - smtp-server
